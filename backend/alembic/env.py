@@ -24,8 +24,9 @@ from app.core.config import settings  # noqa: E402
 
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
-# Import Base metadata for autogenerate support
-# Models will be imported in Epic 2+ stories
+# Import all models so autogenerate detects schema changes
+from app.auth.models import User  # noqa: F401, E402
+from app.billing.models import CreditBalance  # noqa: F401, E402
 from app.db.base import Base  # noqa: E402
 
 target_metadata = Base.metadata

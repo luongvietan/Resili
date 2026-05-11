@@ -1,6 +1,7 @@
 import sentry_sdk
 from fastapi import FastAPI, Request
 
+from app.api.v1.router import router as v1_router
 from app.core.config import settings
 from app.core.errors import register_exception_handlers
 
@@ -25,6 +26,8 @@ def create_app() -> FastAPI:
 
     # Register error handlers
     register_exception_handlers(app)
+
+    app.include_router(v1_router)
 
     # BSD Attribution header middleware (NFR-11)
     @app.middleware("http")

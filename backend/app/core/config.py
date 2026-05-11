@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     STRIPE_SECRET_KEY: str | None = None
     STRIPE_WEBHOOK_SECRET: str | None = None
 
-    model_config = SettingsConfigDict(env_file=(".env", "../.env"))
+    model_config = SettingsConfigDict(env_file=("../.env", ".env"))
 
 
 settings = Settings()

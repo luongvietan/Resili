@@ -68,6 +68,22 @@ class CreditsExhaustedError(ResiliError):
     docs_url = "https://docs.resili.io/errors/credits-exhausted"
 
 
+class EmailAlreadyExistsError(ResiliError):
+    status_code = 400
+    error_code = "EMAIL_ALREADY_EXISTS"
+    message = "An account with this email already exists"
+    hint = "Try logging in instead, or use a different email address"
+    docs_url = "https://docs.resili.io/errors/email-already-exists"
+
+
+class InvalidCredentialsError(ResiliError):
+    status_code = 401
+    error_code = "INVALID_CREDENTIALS"
+    message = "Invalid email or password"
+    hint = "Check your email and password and try again"
+    docs_url = "https://docs.resili.io/errors/invalid-credentials"
+
+
 # — Exception Handlers —
 
 def _error_response(exc: ResiliError) -> JSONResponse:
