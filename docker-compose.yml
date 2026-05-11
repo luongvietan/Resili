@@ -9,10 +9,10 @@ services:
       - DATABASE_URL=postgresql+psycopg://resili:resili@db:5432/resili
       - REDIS_URL=redis://redis:6379
       - SECRET_KEY=${SECRET_KEY}
-      - SENTRY_DSN=${SENTRY_DSN:-}
-      - RESEND_API_KEY=${RESEND_API_KEY:-}
-      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
-      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+      - SENTRY_DSN
+      - RESEND_API_KEY
+      - STRIPE_SECRET_KEY
+      - STRIPE_WEBHOOK_SECRET
     depends_on:
       db:
         condition: service_healthy
@@ -29,8 +29,10 @@ services:
       - REDIS_URL=redis://redis:6379
       - SECRET_KEY=${SECRET_KEY}
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
 
   frontend:
     build:

@@ -1,6 +1,6 @@
 # Story 1.1: Monorepo Scaffold & Docker Compose
 
-Status: review
+Status: done
 
 ## Story
 
@@ -62,6 +62,13 @@ so that I can start development immediately without manual environment setup.
   - [x] `docker compose up` không có lỗi (Dockerfiles và compose config đã tạo; verify lúc `docker compose up` thực tế)
   - [x] http://localhost:3000 trả về Next.js default page (frontend scaffold tạo thành công)
   - [x] http://localhost:8000/docs trả về FastAPI Swagger UI (main.py với docs_url="/docs" đã tạo)
+
+### Review Findings
+
+- [x] [Review][Patch] Thiếu file `.gitkeep` trong các thư mục rỗng — Git không theo dõi các thư mục rỗng như `.github/workflows/` và `backend/alembic/versions/` nếu không có file bên trong. [.github/workflows/]
+- [x] [Review][Patch] Pydantic Settings mong đợi `.env` ở thư mục hiện tại — Các test chạy trong `backend/` sẽ gặp lỗi `ValidationError` vì `.env` nằm ở thư mục root. [backend/app/core/config.py]
+- [x] [Review][Patch] Docker Compose truyền chuỗi rỗng thay vì bỏ qua biến môi trường tùy chọn (như `SENTRY_DSN`) — Pydantic sẽ nhận chuỗi `""` thay vì `None`. [docker-compose.yml]
+- [x] [Review][Patch] Worker service dùng cú pháp list cho `depends_on` db — Nó sẽ khởi động trước khi DB thực sự healthy (khác với api dùng dict syntax `condition: service_healthy`). [docker-compose.yml]
 
 ## Dev Notes
 
