@@ -45,7 +45,7 @@ development_status:
   # Epic 1: Foundation & Project Setup
   epic-1: in-progress
   1-1-monorepo-scaffold-docker-compose: done
-  1-2-core-error-schema-config-and-health-endpoints: ready-for-dev
+  1-2-core-error-schema-config-and-health-endpoints: done
   1-3-ci-cd-pipeline-observability-integration: ready-for-dev
   1-4-public-landing-page-design-system-showcase: ready-for-dev
   epic-1-retrospective: optional

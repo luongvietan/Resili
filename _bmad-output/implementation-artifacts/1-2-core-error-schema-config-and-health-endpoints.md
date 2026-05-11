@@ -1,6 +1,6 @@
 # Story 1.2: Core Error Schema, Config, and Health Endpoints
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -24,29 +24,29 @@ so that all API consumers have a consistent error format and deployment platform
 
 ## Tasks / Subtasks
 
-- [ ] Implement `app/core/errors.py` — custom exceptions + global handlers (AC: 1, 3)
-  - [ ] Tạo `ResiliError` base exception class
-  - [ ] Tạo `NotFoundError`, `UnauthorizedError`, `ForbiddenError`, `SSRFBlockedError`, `CreditsExhaustedError`
-  - [ ] Tạo FastAPI exception handlers → format thành Dec-D schema
-  - [ ] Register handlers trong `app/main.py`
+- [x] Implement `app/core/errors.py` — custom exceptions + global handlers (AC: 1, 3)
+  - [x] Tạo `ResiliError` base exception class
+  - [x] Tạo `NotFoundError`, `UnauthorizedError`, `ForbiddenError`, `SSRFBlockedError`, `CreditsExhaustedError`
+  - [x] Tạo FastAPI exception handlers → format thành Dec-D schema
+  - [x] Register handlers trong `app/main.py`
 
-- [ ] Verify `app/core/config.py` (AC: 2)
-  - [ ] Đảm bảo `Settings` class đầy đủ theo Story 1.1
-  - [ ] Kiểm tra không có `os.environ.get()` nào ngoài file này
+- [x] Verify `app/core/config.py` (AC: 2)
+  - [x] Đảm bảo `Settings` class đầy đủ theo Story 1.1
+  - [x] Kiểm tra không có `os.environ.get()` nào ngoài file này
 
-- [ ] Implement health và root endpoints trong `app/main.py` (AC: 4, 5)
-  - [ ] `GET /health` → `{"status": "ok"}`
-  - [ ] `GET /api/v1/` → `{"version": "v1", "docs": "/docs"}`
-  - [ ] Add `X-Powered-By: Resili (built on Scrapling — BSD License)` response header middleware (NFR-11)
+- [x] Implement health và root endpoints trong `app/main.py` (AC: 4, 5)
+  - [x] `GET /health` → `{"status": "ok"}`
+  - [x] `GET /api/v1/` → `{"version": "v1", "docs": "/docs"}`
+  - [x] Add `X-Powered-By: Resili (built on Scrapling — BSD License)` response header middleware (NFR-11)
 
-- [ ] Cấu hình Alembic hoạt động (AC: 6)
-  - [ ] Verify `alembic/env.py` đọc DATABASE_URL từ `settings`
-  - [ ] Chạy `alembic upgrade head` thành công (không có migration → OK)
-  - [ ] Tạo `backend/app/db/base.py` với `DeclarativeBase`
+- [x] Cấu hình Alembic hoạt động (AC: 6)
+  - [x] Verify `alembic/env.py` đọc DATABASE_URL từ `settings`
+  - [x] Chạy `alembic upgrade head` thành công (không có migration → OK)
+  - [x] Tạo `backend/app/db/base.py` với `DeclarativeBase`
 
-- [ ] Viết tests cho error schema và endpoints (AC: 1, 4, 5)
-  - [ ] `backend/tests/api/test_health.py`: test `/health` và `/api/v1/`
-  - [ ] `backend/tests/test_errors.py`: test Dec-D schema với custom exceptions
+- [x] Viết tests cho error schema và endpoints (AC: 1, 4, 5)
+  - [x] `backend/tests/api/test_health.py`: test `/health` và `/api/v1/`
+  - [x] `backend/tests/test_errors.py`: test Dec-D schema với custom exceptions
 
 ## Dev Notes
 
@@ -294,6 +294,14 @@ Claude Sonnet 4.6 (Thinking)
 ### Completion Notes List
 
 - Ultimate context engine analysis completed - comprehensive developer guide created
+- Implemented core exception classes (`ResiliError`, `NotFoundError`, etc.) formatting cleanly to Dec-D schema.
+- Added FastAPI global exception handlers for `ResiliError`, `RequestValidationError`, and `StarletteHTTPException`.
+- Registered handlers and endpoints in `app/main.py`.
+- Enforced ascii `-` for `X-Powered-By` header to resolve latin-1 encoding issues.
+- Updated database base model to `DeclarativeBase`.
+- Alembic `env.py` uses `settings.DATABASE_URL`.
+- Installed `psycopg[binary]` and verified `alembic upgrade head` functions cleanly.
+- Wrote and passed comprehensive unit tests for exception formats, endpoints, and headers.
 
 ### File List
 
@@ -307,3 +315,8 @@ Claude Sonnet 4.6 (Thinking)
 - `backend/tests/api/__init__.py`
 - `backend/tests/api/test_health.py`
 - `backend/tests/test_errors.py`
+
+### Review Findings
+
+- [x] [Review][Patch] Missing generic `Exception` fallback handler [`backend/app/core/errors.py`]
+- [x] [Review][Patch] `StarletteHTTPException` handler maps `exc.detail` to `message` which may not be a string [`backend/app/core/errors.py`]

@@ -5,7 +5,9 @@ import pytest
 from httpx import AsyncClient, ASGITransport
 
 
-@pytest.fixture
+import pytest_asyncio
+
+@pytest_asyncio.fixture
 async def client():
     """Async HTTP client for testing FastAPI app."""
     # Import app here to avoid issues when DATABASE_URL is not set
