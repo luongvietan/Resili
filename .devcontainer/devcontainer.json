@@ -1,0 +1,10 @@
+{
+  "name": "Resili Dev Container",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "api",
+  "workspaceFolder": "/app",
+  "extensions": [
+    "ms-python.python",
+    "charliermarsh.ruff"
+  ]
+}
