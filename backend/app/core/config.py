@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     REDIS_URL: str
     SECRET_KEY: str
+    ENVIRONMENT: str = "production"
     SENTRY_DSN: str | None = None
     RESEND_API_KEY: str | None = None
     STRIPE_SECRET_KEY: str | None = None

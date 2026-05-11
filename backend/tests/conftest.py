@@ -1,11 +1,9 @@
 """
 Test configuration and fixtures for the Resili backend.
 """
-import pytest
-from httpx import AsyncClient, ASGITransport
-
-
 import pytest_asyncio
+from httpx import ASGITransport, AsyncClient
+
 
 @pytest_asyncio.fixture
 async def client():

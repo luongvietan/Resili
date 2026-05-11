@@ -1,8 +1,22 @@
-from fastapi import FastAPI, Request, Response
+import sentry_sdk
+from fastapi import FastAPI, Request
+
 from app.core.config import settings
 from app.core.errors import register_exception_handlers
 
+_sentry_initialized: bool = False
+
+
 def create_app() -> FastAPI:
+    global _sentry_initialized
+    if settings.SENTRY_DSN and not _sentry_initialized:
+        sentry_sdk.init(
+            dsn=settings.SENTRY_DSN,
+            traces_sample_rate=0.1,
+            environment=settings.ENVIRONMENT,
+        )
+        _sentry_initialized = True
+
     app = FastAPI(
         title="Resili API",
         version="0.1.0",

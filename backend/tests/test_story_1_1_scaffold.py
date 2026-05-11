@@ -7,8 +7,9 @@ Tests verify:
 - AC5: .env.example contains all required variables
 - AC6: Dockerfile and Dockerfile.worker have correct content
 """
-import os
 import json
+import os
+
 import pytest
 
 # Project root is 2 levels up from backend/tests/

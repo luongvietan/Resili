@@ -1,3 +1,6 @@
+// Sentry is initialized automatically via sentry.client.config.ts and sentry.server.config.ts
+// when NEXT_PUBLIC_SENTRY_DSN / SENTRY_DSN env vars are set.
+// withSentryConfig in next.config.ts handles the instrumentation — no manual init needed here.
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";

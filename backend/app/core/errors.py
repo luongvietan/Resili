@@ -1,8 +1,8 @@
-from fastapi import Request, FastAPI
-from fastapi.responses import JSONResponse
+
+from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from typing import Optional
 
 
 class ResiliError(Exception):
@@ -13,7 +13,7 @@ class ResiliError(Exception):
     hint: str = "Please try again or contact support"
     docs_url: str = "https://docs.resili.io/errors/internal-server-error"
 
-    def __init__(self, message: Optional[str] = None, hint: Optional[str] = None):
+    def __init__(self, message: str | None = None, hint: str | None = None):
         self.message = message or self.__class__.message
         self.hint = hint or self.__class__.hint
 

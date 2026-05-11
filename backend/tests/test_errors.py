@@ -1,12 +1,12 @@
-import pytest
 from app.core.errors import (
-    ResiliError,
-    NotFoundError,
-    UnauthorizedError,
-    ForbiddenError,
-    SSRFBlockedError,
     CreditsExhaustedError,
+    ForbiddenError,
+    NotFoundError,
+    ResiliError,
+    SSRFBlockedError,
+    UnauthorizedError,
 )
+
 
 def test_base_resili_error_schema():
     """Test that the base ResiliError conforms to the Dec-D schema."""
