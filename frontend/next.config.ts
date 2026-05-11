@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
 
 export default withSentryConfig(nextConfig, {
   silent: process.env.CI !== "true",
-  hideSourceMaps: true,
+  sourcemaps: { disable: true },
   org: process.env.SENTRY_ORG,
   project: process.env.SENTRY_PROJECT,
 });

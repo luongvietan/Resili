@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Canvas & surfaces (UX-DR1) */
+  --color-canvas: #000000;
+  --color-surface-card: #0a0a0c;
+  --color-surface-elevated: #101012;
+  --color-surface-deep: #06060a;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Hairlines */
+  --color-hairline: rgba(255, 255, 255, 0.06);
+  --color-hairline-strong: rgba(255, 255, 255, 0.14);
+  --color-divider-soft: rgba(255, 255, 255, 0.08);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Ink scale */
+  --color-ink: #fcfdff;
+  --color-body: #c8cdd8;
+  --color-charcoal: #8b919e;
+  --color-mute: #5a6070;
+  --color-ash: #3a3f4a;
+  --color-stone: #1e2028;
+
+  /* Accent colors with glow (UX-DR3) */
+  --color-accent-orange: #ff801f;
+  --color-accent-orange-glow: rgba(255, 89, 0, 0.22);
+  --color-accent-yellow: #ffc53d;
+  --color-accent-blue: #3b9eff;
+  --color-accent-blue-glow: rgba(0, 117, 255, 0.34);
+  --color-accent-green: #11ff99;
+  --color-accent-green-glow: rgba(34, 255, 153, 0.18);
+  --color-accent-red: #ff2047;
+  --color-accent-red-glow: rgba(255, 32, 71, 0.34);
+
+  /* Font families (UX-DR2) */
+  --font-serif: "Tiempos Headline", Georgia, serif;
+  --font-display: "Inter Tight", Inter, sans-serif;
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-mono: "Geist Mono", monospace;
+
+  /* Typography scale (UX-DR4) */
+  --text-display-xxl: 96px;
+  --text-display-xxl--line-height: 1.0;
+  --text-display-xxl--letter-spacing: -0.96px;
+
+  --text-display-xl: 72px;
+  --text-display-xl--line-height: 1.0;
+  --text-display-xl--letter-spacing: -0.72px;
+
+  --text-display-lg: 56px;
+  --text-display-lg--line-height: 1.0;
+  --text-display-lg--letter-spacing: -0.56px;
+
+  --text-display-md: 48px;
+  --text-display-md--line-height: 1.05;
+  --text-display-md--letter-spacing: -0.48px;
+
+  --text-display-sm: 40px;
+  --text-display-sm--line-height: 1.1;
+  --text-display-sm--letter-spacing: -0.4px;
+
+  --text-display-xs: 32px;
+  --text-display-xs--line-height: 1.15;
+  --text-display-xs--letter-spacing: -0.32px;
+
+  --text-body-xl: 20px;
+  --text-body-xl--line-height: 1.6;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+
+  --text-body-xs: 13px;
+  --text-body-xs--line-height: 1.5;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.02em;
+
+  --text-code-md: 13px;
+  --text-code-md--line-height: 1.6;
+
+  /* Breakpoints (UX-DR12) - 6 custom breakpoints */
+  --breakpoint-mobile: 425px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-tablet-lg: 1024px;
+  --breakpoint-desktop: 1280px;
+  --breakpoint-desktop-xl: 1440px;
+
+  /* Max widths */
+  --width-body: 1200px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-sans);
 }
