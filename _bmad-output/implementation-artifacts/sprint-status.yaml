@@ -35,7 +35,7 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-11
-last_updated: 2026-05-11
+last_updated: 2026-05-12
 project: resili
 
 project_key: NOKEY
@@ -54,7 +54,7 @@ development_status:
   # Epic 2: Authentication & API Key Management
   epic-2: in-progress
   2-1-user-registration-account-creation: done
-  2-2-user-login-jwt-authentication: ready-for-dev
+  2-2-user-login-jwt-authentication: done
   2-3-api-key-generation: ready-for-dev
   2-4-api-key-management-list-revoke-regenerate: ready-for-dev
   2-5-api-request-authentication-middleware: ready-for-dev

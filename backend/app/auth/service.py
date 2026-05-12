@@ -1,12 +1,14 @@
 from datetime import date, datetime, timezone
 
 import bcrypt
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.auth.models import User
 from app.billing.models import CreditBalance
-from app.core.errors import EmailAlreadyExistsError
+from app.core.errors import EmailAlreadyExistsError, InvalidCredentialsError
+from app.core.security import create_access_token
 
 
 def _next_month_first_day() -> date:
@@ -39,3 +41,24 @@ async def register_user(db: AsyncSession, email: str, password: str) -> User:
         raise
 
     return user
+
+
+_DUMMY_HASH = b"$2b$12$mr6.4t6US3IU2mUxbWY9JuBYzbYSMrFPgFr.bQYqO6NqI0NLuaSIq"
+
+
+async def login_user(db: AsyncSession, email: str, password: str) -> str:
+    """Returns JWT access token. Raises InvalidCredentialsError for any auth failure."""
+    result = await db.execute(select(User).where(User.email == email.strip().lower()))
+    user = result.scalar_one_or_none()
+
+    # Prevent timing attack enumeration by always checking a password hash
+    password_valid = False
+    if user:
+        password_valid = bcrypt.checkpw(password.encode(), user.password_hash.encode())
+    else:
+        bcrypt.checkpw(password.encode(), _DUMMY_HASH)
+
+    if not user or not password_valid:
+        raise InvalidCredentialsError()
+
+    return create_access_token(user.id)

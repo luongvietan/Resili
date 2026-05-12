@@ -84,6 +84,30 @@ class InvalidCredentialsError(ResiliError):
     docs_url = "https://docs.resili.io/errors/invalid-credentials"
 
 
+class MissingAuthTokenError(ResiliError):
+    status_code = 401
+    error_code = "MISSING_AUTH_TOKEN"
+    message = "Authentication token is required"
+    hint = "Add Authorization: Bearer <token> header"
+    docs_url = "https://docs.resili.io/errors/missing-auth-token"
+
+
+class TokenExpiredError(ResiliError):
+    status_code = 401
+    error_code = "TOKEN_EXPIRED"
+    message = "Authentication token has expired"
+    hint = "Log in again to get a new token"
+    docs_url = "https://docs.resili.io/errors/token-expired"
+
+
+class InvalidTokenError(ResiliError):
+    status_code = 401
+    error_code = "INVALID_TOKEN"
+    message = "Authentication token is invalid"
+    hint = "Ensure the token was issued by Resili and has not been tampered with"
+    docs_url = "https://docs.resili.io/errors/invalid-token"
+
+
 # — Exception Handlers —
 
 def _error_response(exc: ResiliError) -> JSONResponse:

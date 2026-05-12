@@ -1,6 +1,6 @@
 # Story 2.2: User Login & JWT Authentication
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -22,25 +22,25 @@ so that I can make authenticated requests to dashboard endpoints.
 
 ## Tasks / Subtasks
 
-- [ ] Implement login endpoint (AC: 1, 2)
-  - [ ] `app/auth/service.py`: `login_user(db, email, password)` → verify bcrypt hash, return JWT
-  - [ ] `app/api/v1/auth.py`: `POST /api/v1/auth/login`
-  - [ ] Same error message for wrong email and wrong password (prevent enumeration)
+- [x] Implement login endpoint (AC: 1, 2)
+  - [x] `app/auth/service.py`: `login_user(db, email, password)` → verify bcrypt hash, return JWT
+  - [x] `app/api/v1/auth.py`: `POST /api/v1/auth/login`
+  - [x] Same error message for wrong email and wrong password (prevent enumeration)
 
-- [ ] Implement JWT creation/validation (AC: 3)
-  - [ ] `app/core/security.py`: `create_access_token(user_id)`, `decode_access_token(token)`
-  - [ ] Token: contains `user_id` (str UUID) + `exp` claim, expires 24h
-  - [ ] Use `python-jose[cryptography]` with HS256 algorithm
-  - [ ] Sign with `settings.SECRET_KEY`
+- [x] Implement JWT creation/validation (AC: 3)
+  - [x] `app/core/security.py`: `create_access_token(user_id)`, `decode_access_token(token)`
+  - [x] Token: contains `user_id` (str UUID) + `exp` claim, expires 24h
+  - [x] Use `python-jose[cryptography]` with HS256 algorithm
+  - [x] Sign with `settings.SECRET_KEY`
 
-- [ ] Implement auth dependency (AC: 4, 5)
-  - [ ] `app/auth/dependencies.py`: `get_current_user()` dependency
-  - [ ] Parse `Authorization: Bearer <token>` header
-  - [ ] Raise `MissingAuthTokenError` if no header
-  - [ ] Raise `TokenExpiredError` if token expired
-  - [ ] Raise `InvalidTokenError` if token invalid
+- [x] Implement auth dependency (AC: 4, 5)
+  - [x] `app/auth/dependencies.py`: `get_current_user()` dependency
+  - [x] Parse `Authorization: Bearer <token>` header
+  - [x] Raise `MissingAuthTokenError` if no header
+  - [x] Raise `TokenExpiredError` if token expired
+  - [x] Raise `InvalidTokenError` if token invalid
 
-- [ ] Viết tests (AC: 1, 2, 3, 4, 5)
+- [x] Viết tests (AC: 1, 2, 3, 4, 5)
 
 ## Dev Notes
 
@@ -229,15 +229,31 @@ Claude Sonnet 4.6 (Thinking)
 ### Completion Notes List
 
 - Ultimate context engine analysis completed - comprehensive developer guide created
+- Implemented `app/core/security.py` với `create_access_token` và `decode_access_token` dùng python-jose HS256
+- Thêm 3 JWT error classes: `MissingAuthTokenError`, `TokenExpiredError`, `InvalidTokenError` vào `errors.py`
+- Thêm `login_user()` vào `app/auth/service.py` — verify bcrypt hash, prevent email enumeration
+- Thêm `POST /api/v1/auth/login` và `GET /api/v1/auth/me` (protected) vào `app/api/v1/auth.py`
+- Tạo `app/auth/dependencies.py` với `get_current_user` FastAPI dependency — xử lý đủ 3 lỗi auth
+- Viết 9 tests bao phủ toàn bộ AC 1-5 (79/79 tests passed, zero regressions)
 
 ### File List
 
 **UPDATE:**
 - `backend/app/auth/service.py` — add login_user
-- `backend/app/auth/dependencies.py` — implement get_current_user
-- `backend/app/api/v1/auth.py` — add login endpoint
-- `backend/app/core/errors.py` — add JWT error classes
-- `backend/app/core/security.py` — implement JWT functions
+- `backend/app/api/v1/auth.py` — add login endpoint + /me protected endpoint
+- `backend/app/core/errors.py` — add MissingAuthTokenError, TokenExpiredError, InvalidTokenError
 
 **NEW:**
-- `backend/tests/api/test_login.py`
+- `backend/app/core/security.py` — JWT create/decode functions
+- `backend/app/auth/dependencies.py` — get_current_user dependency
+- `backend/tests/api/test_login.py` — 9 tests covering all ACs
+
+### Change Log
+
+- 2026-05-11: Story 2.2 implemented — User Login & JWT Authentication complete. Login endpoint, JWT security module, auth dependency, and full test coverage added.
+
+### Review Findings
+
+- [x] [Review][Patch] Timing attack vulnerability in `login_user` [`backend/app/auth/service.py`]
+- [x] [Review][Patch] Potential 500 error on invalid UUID string in `get_current_user` [`backend/app/auth/dependencies.py`]
+- [x] [Review][Defer] Database performance bottleneck in `get_current_user` [`backend/app/auth/dependencies.py`] — deferred, pre-existing
